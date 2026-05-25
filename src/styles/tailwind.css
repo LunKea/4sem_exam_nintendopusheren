@@ -8,16 +8,16 @@
 @theme {
   /* Her tilføjes theme variable // tokens */
 
-  color-red-400: #dd3333;
-  color-red-200: #ff0000;
-  color-black-1000: #000000;
-  color-black-500: #7f7f7f;
-  color-yellow-500: #d9b900;
-  color-orange-500: #d97400;
+  --color-red-400: #dd3333;
+  --color-red-200: #ff0000;
+  --color-black-1000: #000000;
+  --color-black-500: #7f7f7f;
+  --color-yellow-500: #d9b900;
+  --color-orange-500: #d97400;
 
   /* Body margin */
-  --margin-x-axis: 30%;
-  --margin-y-axis: 10%;
+  --margin-x-axis: 20%;
+  --margin-y-axis: 5%;
 
   /* RADIUS VALUES */
   --radius-tags: 5px;
@@ -56,6 +56,15 @@
 }
 
 @layer components {
-}
-@layer utilities {
+  .body-x-margin {
+    margin-left: var(--margin-x-axis);
+    margin-right: var(--margin-x-axis);
+  }
+
+  .body-y-margin {
+    margin-top: var(--margin-y-axis);
+    margin-bottom: var(--margin-y-axis);
+  }
+  @layer utilities {
+  }
 }

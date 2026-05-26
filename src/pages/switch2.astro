@@ -6,9 +6,29 @@ import { Image } from 'astro:assets';
 import thumbsup from "../assets/images/thumbsup.png";
 ---
 <MainLayout title="Titel">
-	<section>
-        <div>
-            
+	<section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
+        
+        <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
+            <div class="flex flex-row place-content-between">
+                <p>Forudbestillinger</p>
+                <p>X</p>
+            </div>
+        </a>
+        </div>
+
+<div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
+            <div class="flex flex-row place-content-between">
+                <p>Forudbestillinger</p>
+                <p>X</p>
+            </div>
+        </a>
         </div>
     </section>
+
+    
+
 </MainLayout>

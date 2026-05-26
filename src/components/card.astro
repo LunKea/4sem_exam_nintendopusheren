@@ -1,0 +1,42 @@
+---
+//@ts-nocheck
+import Text from './Text.astro';
+
+    // url and key to supabase/database
+const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
+
+const options = {
+  headers: {
+    apikey: key,
+  },
+};
+// fetch data
+const response = await fetch(url, options);
+const data = await response.json();
+const products = Array.isArray(data) ? data : [];
+
+const {
+  title,
+  category,
+  qty,
+  price,
+  desc,
+  release,
+  discount,
+
+} = Astro.props;
+
+---
+
+ <div class="w-fit">
+        <a href="/single">
+            <img src="{products.img}" alt="Image for product" class="w-50 place-self-center h-auto">
+            <div class="flex flex-col place-self-center">
+            <Text>{products.title}</Text>
+            <p>{products.title} XX</p>
+            <Text stylingclasses="mx-auto" >500,00 kr</Text>
+            </div>
+        </a>
+</div>

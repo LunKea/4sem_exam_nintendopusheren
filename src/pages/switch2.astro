@@ -1,34 +1,132 @@
 ---
+//@ts-nocheck
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from '../components/Button.astro';
-import Link from '../components/Link.astro';
-import { Image } from 'astro:assets';
-import thumbsup from "../assets/images/thumbsup.png";
+import Heading from '../components/Heading.astro';
+import Text from '../components/Text.astro';
+import Card from '../components/card.astro';
+
+    // url and key to supabase/database
+const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
+
+const options = {
+  headers: {
+    apikey: key,
+  },
+};
+// fetch data
+const response = await fetch(url, options);
+const data = await response.json();
+const products = Array.isArray(data) ? data : [];
+
+const {
+  img,
+  title,
+  title2,
+  price,
+  Old_price,
+  discount_percentage,
+  soldout,
+  // category,
+  // category2,
+  type,
+  path,
+} = Astro.props;
+
 ---
 <MainLayout title="Titel">
+
+
 	<section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
-        
-        <div class="w-fit">
-        <a>
-            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
-            <div class="flex flex-row place-content-between">
-                <p>Forudbestillinger</p>
-                <p>X</p>
-            </div>
-        </a>
-        </div>
-
-<div class="w-fit">
-        <a>
-            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
-            <div class="flex flex-row place-content-between">
-                <p>Forudbestillinger</p>
-                <p>X</p>
-            </div>
-        </a>
-        </div>
-    </section>
-
     
 
+    <div>
+
+    </div>
+
+
+        <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>Forudbestillinger</Text>
+            <Text>X</Text>
+            </div>
+        </a>
+        </div>
+
+        <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>Nyt spil</Text>
+            <Text>X</Text>
+                
+                <!-- <p>Forudbestillinger</p>
+                <p>X</p> -->
+            </div>
+        </a>
+        </div>
+
+        <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>På tilbud</Text>
+            <Text>X</Text>
+                
+                <!-- <p>Forudbestillinger</p>
+                <p>X</p> -->
+            </div>
+        </a>
+        </div>
+
+                <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>Switch 2 konsol</Text>
+            <Text>X</Text>
+                
+                <!-- <p>Forudbestillinger</p>
+                <p>X</p> -->
+            </div>
+        </a>
+        </div>
+
+        <div class="w-fit">
+        <a>
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>Switch 2 tilbehør</Text>
+            <Text>X</Text>
+                
+                <!-- <p>Forudbestillinger</p>
+                <p>X</p> -->
+            </div>
+        </a>
+        </div>
+
+    </section>
+
+    <Heading stylingclasses="mx-10 mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
+
+    <section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
+        
+        {products.length > 0 ? (
+            products.map((product) => (
+               <Card></Card>
+            ))
+        ) : (
+            <p class="text-gray-500">No products found</p>
+        )}
+
+
+        
+        </section>
+
+        
+
 </MainLayout>
+

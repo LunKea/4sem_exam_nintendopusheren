@@ -1,0 +1,167 @@
+---
+import '../styles/tailwind.css';
+---
+
+<section class="category_section min-w-50 outline-2">
+<div class="flex flex-col category">
+    <div id="konsoller" class="active_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Konsoller</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon">
+    </div>
+
+    <div id="konsoller_list" class="flex flex-col">
+    <a class="category category_btn h-10 place-content-center" href="/switch2">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Nintendo</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Playstation</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Xbox</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Sega</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Evercade</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Andre konsoller</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Konsol tilbehør</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Reservedele til konsoller</p>
+    </a>
+    </div>
+</div>
+
+<div class="flex flex-col">
+    <div id="merch" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Merchandise</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
+    </div>
+
+    <div id="merch_list" class="hidden">
+    <a class="category category_btn h-10 place-content-center" href="/switch2">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+    </div>
+</div>
+
+<div class="flex flex-col category">
+    <div id="figurer" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Figurer til spil</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
+    </div>
+
+    <div id="figurer_list" class="hidden">
+    <a class="category category_btn h-10 place-content-center" href="/switch2">
+        <p class="ml-2">Switch 2-Udvalg</p>
+    </a>
+
+    </a>
+    </div>
+</div>
+
+
+</section>
+
+<style>
+
+    .active_category {
+        background-color: var(--cta-background-active);
+    }
+
+    .inactive_category {
+        background-color: var(--cta-background-inactive);
+    }
+
+    .inactive_arrow {
+        transform: rotate(90deg);
+    }
+
+    .category{
+        outline: 2px solid black;
+    }
+
+    .category_btn {
+        outline: 2px solid black;
+        background: var(--category-background);
+    }
+
+</style>
+
+<script is:inline>
+
+    // const activeCategory = document.querySelector('.active_category');
+    // const inactiveCategories = document.querySelectorAll('.inactive_category');
+    // const categoryButtons = document.querySelectorAll('.category_btn');
+
+    // activeCategory.addEventListener('click', () => {
+    //     activeCategory.classList.remove('active_category');
+    //     activeCategory.classList.add('inactive_category');
+    //     activeCategory.querySelector('.inactive_arrow').classList.add('inactive_arrow');
+    //     activeCategory.querySelector('.inactive_arrow').classList.remove('active_arrow');
+
+    //     inactiveCategories.forEach(category => {
+    //         category.classList.remove('inactive_category');
+    //         category.classList.add('active_category');
+    //         category.querySelector('.inactive_arrow').classList.remove('inactive_arrow');
+    //         category.querySelector('.inactive_arrow').classList.add('active_arrow');
+    //     });
+    // });
+    
+    const activeCategory = document.querySelector('.active_category');
+    const inactiveCategories = document.querySelectorAll('.inactive_category');
+    const konsollerBtn = document.querySelector('#konsoller');
+    const merchBtn = document.querySelector('#merch');
+    const figurerBtn = document.querySelector('#figurer');
+    const konsollerList = document.querySelector('#konsoller_list');
+    const merchList = document.querySelector('#merch_list');
+    const figurerList = document.querySelector('#figurer_list');
+
+    konsollerBtn.addEventListener('click', () => {
+        konsollerList.classList.toggle('hidden');
+    });
+
+    merchBtn.addEventListener('click', () => {
+        merchList.classList.toggle('hidden');
+    });
+
+    figurerBtn.addEventListener('click', () => {
+        figurerList.classList.toggle('hidden');
+    });
+
+</script>

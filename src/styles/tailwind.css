@@ -14,9 +14,10 @@
   --color-black-500: #7f7f7f;
   --color-yellow-500: #d9b900;
   --color-orange-500: #d97400;
+  --color-white: #ffffff;
 
   /* Body margin */
-  --margin-x-axis: 20%;
+  --margin-x-axis: 15%;
   --margin-y-axis: 5%;
 
   /* RADIUS VALUES */
@@ -38,6 +39,7 @@
   --cta-background-active: var(--color-red-400);
   --cta-background-inactive: var(--color-black-500);
   --cta-text: var(--color-white);
+  --category-background: var(--color-white);
 
   /* TAGS */
   --tag-discount-bg: var(--color-yellow-500);

@@ -30,10 +30,13 @@ const {
 } = Astro.props;
 
 ---
-
  <div class="w-fit">
+    <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 relative left-30 top-12 text-center">
+        <p>Pre-Order</p>
+    </div>
+
         <a href="/single">
-            <img src={img} alt="Image for product" class="w-50 place-self-center h-auto min-h-64">
+            <img src={img} alt="Image for product" class="place-self-center w-50 min-h-100 object-contain">
             <div class="flex flex-col place-self-center">
             <Text>{title}</Text>
             <Text stylingclasses="mx-auto" >{price},00 kr</Text>

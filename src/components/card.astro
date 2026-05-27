@@ -19,15 +19,21 @@ const products = Array.isArray(data) ? data : [];
 
 const {product} = Astro.props;
 
-
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const releaseDate = new Date(product.release);
+releaseDate.setHours(0, 0, 0, 0);
 
 ---
 
-{product.release || }
+
  <div class="w-fit">
+
+    {releaseDate > today &&
     <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 relative left-30 top-12 text-center">
         <p>Pre-Order</p>
     </div>
+    }
 
 
     <div class="w-fit">

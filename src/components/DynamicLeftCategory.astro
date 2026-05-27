@@ -1,0 +1,137 @@
+---
+import '../styles/tailwind.css';
+
+    // url and key to supabase/database
+const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
+
+const options = {
+  headers: {
+    apikey: key,
+  },
+};
+// fetch data
+const response = await fetch(url, options);
+const data = await response.json();
+const products = Array.isArray(data) ? data.filter(product => product.category === "Switch 2") : [];
+console.log('Products data:', products); // DEBUG: Check what fields exist in console in browser (F12)
+
+
+---
+
+<section class="category_section min-w-50 translate-z-2">
+<div class="flex flex-col category">
+    <div id="konsoller" class="active_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Konsoller</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon">
+    </div>
+
+    <ul id="konsoller_list" class="flex flex-col">
+    <li class="category category_btn h-10 place-content-center"><a href="/switch2" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Nintendo</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Playstation</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Xbox</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Sega</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Evercade</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Andre konsoller</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Konsol tilbehør</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Reservedele til konsoller</a></li>
+    </ul>
+</div>
+
+<div class="flex flex-col outline-2">
+    <div id="merch" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Merchandise</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
+    </div>
+
+    <ul id="merch_list" class="hidden">
+    <li class="category category_btn h-10 place-content-center"><a href="/switch2" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+    </ul>
+</div>
+
+<div class="flex flex-col category">
+    <div id="figurer" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+        <img src="/public/icons/menu.svg" alt="Menu icon">
+    <p>Figurer til spil</p>
+    <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
+    </div>
+
+    <ul id="figurer_list" class="hidden">
+    <li class="category category_btn h-10 place-content-center"><a href="/switch2" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+
+    </ul>
+</div>
+
+
+</section>
+
+<style>
+
+    .active_category {
+        background-color: var(--cta-background-active);
+    }
+
+    .inactive_category {
+        background-color: var(--cta-background-inactive);
+    }
+
+    .inactive_arrow {
+        transform: rotate(90deg);
+    }
+
+    .category{
+        outline: 2px solid black;
+    }
+
+    .category_btn {
+        outline: 2px solid black;
+        background: var(--category-background);
+    }
+
+</style>
+
+<script is:inline>
+
+    
+    const activeCategory = document.querySelector('.active_category');
+    const inactiveCategories = document.querySelectorAll('.inactive_category');
+    const konsollerBtn = document.querySelector('#konsoller');
+    const merchBtn = document.querySelector('#merch');
+    const figurerBtn = document.querySelector('#figurer');
+    const konsollerList = document.querySelector('#konsoller_list');
+    const merchList = document.querySelector('#merch_list');
+    const figurerList = document.querySelector('#figurer_list');
+
+    konsollerBtn.addEventListener('click', () => {
+        konsollerList.classList.toggle('hidden');
+    });
+
+    merchBtn.addEventListener('click', () => {
+        merchList.classList.toggle('hidden');
+    });
+
+    figurerBtn.addEventListener('click', () => {
+        figurerList.classList.toggle('hidden');
+    });
+
+</script>

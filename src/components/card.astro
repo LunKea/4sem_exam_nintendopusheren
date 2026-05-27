@@ -27,10 +27,10 @@ releaseDate.setHours(0, 0, 0, 0);
 ---
 
 
- <div class="w-fit">
+ <div class="w-fit relative">
 
     {releaseDate > today &&
-    <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 relative left-30 top-12 text-center">
+    <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 absolute left-30 top-12 text-center">
         <p>Pre-Order</p>
     </div>
     }
@@ -38,7 +38,7 @@ releaseDate.setHours(0, 0, 0, 0);
 
     <div class="w-fit">
     {product.discount &&
-    <div class="max-w-25 rounded-xl bg-green-200 min-w-20 relative left-30 top-12 text-center">
+    <div class="max-w-25 rounded-xl bg-green-200 min-w-20 absolute left-30 top-12 text-center">
         <p>Tilbud</p>
     </div>
 }

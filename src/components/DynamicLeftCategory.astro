@@ -1,5 +1,9 @@
 ---
-import '../styles/tailwind.css';
+//@ts-nocheck
+import MainLayout from "../layouts/MainLayout.astro";
+import Heading from '../components/Heading.astro';
+import Text from '../components/Text.astro';
+import Card from '../components/card.astro';
 
     // url and key to supabase/database
 const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
@@ -14,9 +18,9 @@ const options = {
 // fetch data
 const response = await fetch(url, options);
 const data = await response.json();
-const products = Array.isArray(data) ? data.filter(product => product.category === "Switch 2") : [];
+const products = Array.isArray(data) ? data : [];
+const brands = [...new Set(products.map(p => p.brand))];
 console.log('Products data:', products); // DEBUG: Check what fields exist in console in browser (F12)
-
 
 ---
 
@@ -29,9 +33,16 @@ console.log('Products data:', products); // DEBUG: Check what fields exist in co
     </div>
 
     <ul id="konsoller_list" class="flex flex-col">
-    <li class="category category_btn h-10 place-content-center"><a href="/switch2" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li>
+  {brands.map((brand) => (
+    <li class="category category_btn h-10 place-content-center">
+      <a href="/switch2" class="ml-2 w-full h-full flex items-center">{brand}</a>
+    </li>
+    ))}
+</ul>   
 
-    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Nintendo</a></li>
+        <!-- <li class="category category_btn h-10 place-content-center"><a href="/switch2" class="ml-2 w-full h-full flex items-center">Switch 2-Udvalg</a></li> -->
+
+    <!-- <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Nintendo</a></li>
 
     <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Playstation</a></li>
 
@@ -45,7 +56,7 @@ console.log('Products data:', products); // DEBUG: Check what fields exist in co
 
     <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Konsol tilbehør</a></li>
 
-    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Reservedele til konsoller</a></li>
+    <li class="category category_btn h-10 place-content-center"><a href="/konsoller/nes" class="ml-2 w-full h-full flex items-center">Reservedele til konsoller</a></li> -->
     </ul>
 </div>
 

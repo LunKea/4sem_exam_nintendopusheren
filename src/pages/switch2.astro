@@ -158,12 +158,20 @@ const {
             });
           }
 
-          // Get filter from URL on page load
-          const params = new URLSearchParams(window.location.search);
-          const urlFilter = params.get('type');
-          if (urlFilter) {
-            applyFilter(urlFilter);
+          // Function to restore filter from URL
+          function restoreFilterFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const urlFilter = params.get('type');
+            if (urlFilter) {
+              applyFilter(urlFilter);
+            }
           }
+
+          // Restore filter on initial page load
+          restoreFilterFromURL();
+
+          // Restore filter when returning to this page (from back button or history)
+          window.addEventListener('pageshow', restoreFilterFromURL);
 
           // Add click handlers to filter buttons
           document.querySelectorAll('[data-filter]').forEach(button => {

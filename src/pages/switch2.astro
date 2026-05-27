@@ -36,15 +36,21 @@ const {
 
 
 	<section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
-    
-
     <div>
-
     </div>
+      <div class="w-fit">
+        <a href="#" data-filter="all" class="cursor-pointer">
+            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <div class="flex flex-row place-content-between">
+            <Text>Alle produkter</Text>
+            <Text>X</Text>
+            </div>
+        </a>
+        </div>
 
 
         <div class="w-fit">
-        <a href="">
+        <a href="#" data-filter="preorder" class="cursor-pointer">
             <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Forudbestillinger</Text>
@@ -54,7 +60,7 @@ const {
         </div>
 
         <div class="w-fit">
-        <a>
+                <a href="#" data-filter="game" class="cursor-pointer">
             <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Nyt spil</Text>
@@ -109,9 +115,9 @@ const {
 
     <Heading stylingclasses="mx-10 mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
 
-    <section id="products-section" class="flex flex-row flex-wrap gap-4 mx-10 mt-10 justify-between">
+    <section id="products-section" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
         {products.map((product) => (
-          <div data-type={product.type}>
+          <div data-type={product.type} data-release={product.release}>
             <Card {product} />
           </div>
         ))}
@@ -120,13 +126,26 @@ const {
         <script>
           function applyFilter(filterType) {
             const products = document.querySelectorAll('[data-type]');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
             products.forEach(product => {
-              if (filterType === null || product.dataset.type === filterType) {
-                product.style.display = '';
+              let shouldDisplay = false;
+              
+              if (filterType === null) {
+                // Show all products
+                shouldDisplay = true;
+              } else if (filterType === 'preorder') {
+                // Show only products with future release dates
+                const releaseDate = new Date(product.dataset.release);
+                releaseDate.setHours(0, 0, 0, 0);
+                shouldDisplay = releaseDate > today;
               } else {
-                product.style.display = 'none';
+                // Show products matching the type
+                shouldDisplay = product.dataset.type === filterType;
               }
+              
+              product.style.display = shouldDisplay ? '' : 'none';
             });
           }
 
@@ -145,11 +164,16 @@ const {
               
               // Update URL
               const newUrl = new URL(window.location);
-              newUrl.searchParams.set('type', filterType);
+              if (filterType === 'all') {
+                // Remove the filter parameter to show all products
+                newUrl.searchParams.delete('type');
+              } else {
+                newUrl.searchParams.set('type', filterType);
+              }
               window.history.pushState({}, '', newUrl);
               
               // Apply filter
-              applyFilter(filterType);
+              applyFilter(filterType === 'all' ? null : filterType);
             });
           });
         </script>

@@ -57,9 +57,13 @@ releaseDate.setHours(0, 0, 0, 0);
         <a href=`/${product.slug}`>
             <img src={product.img} alt="Image for product" class="place-self-center w-50 min-h-100 object-contain">
             <div class="flex flex-col place-self-center">
-            <Text>{product.title}</Text>
+            <Text stylingclasses="place-self-center">{product.title}</Text>
+            <div class="flex flex-row gap-2 place-self-center">
+            {product.discount &&
+            <Text stylingclasses="mx-auto opacity-50 line-through" >{product.price},00 kr</Text>
+            }
             <Text stylingclasses="mx-auto" >{Math.ceil((product.price - product.price * (product.discount / 100)))},00 kr</Text>
-            
+            </div>
           </div>
         </a>
 </div>

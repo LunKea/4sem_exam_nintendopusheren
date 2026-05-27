@@ -109,26 +109,7 @@ const {
 
     <Heading stylingclasses="mx-10 mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
 
-    <section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10">
-        
-        <!-- {products.length > 0 ? (
-            products.map((product) => (
-               <Card
-                img={product.img}
-                title={product.title}
-                price={product.price}
-               >
-               </Card>
-            ))
-        ) : (
-            <p class="text-gray-500">No products found</p>
-        )} -->
-
-
-
-
-<!-- {products.map((product) => (<Card {product} /> ))} -->
-
+    <section id="category" class="flex flex-row flex-wrap gap-4 mx-10 mt-10 justify-between">
         {products.map((product) => <Card {product} />)}
 
         </section>

@@ -40,10 +40,12 @@ const { myProduct } = Astro.props;
 <MainLayout title="Titel">
 	<section class="mx-10">
     
-    <div class="flex flex-row mt-5">
-    <img src="/icons/arrow_up.svg" alt="Image for category" class="w-10 rotate-270">
+    <a href="#" onclick="history.back()">
+    <div class="flex flex-row my-5">
+    <img src="/icons/arrow_up.svg" alt="Image for category" class="w-10 h-auto rotate-270">
      <Text>Tilbage</Text>
     </div>
+    </a>
 
     <section class="grid grid-cols-2 gap-5">
         <div>
@@ -58,7 +60,7 @@ const { myProduct } = Astro.props;
         <Heading> Forudbestilling </Heading>
         
         <div class="h-90">
-        <Text>Produktbeskrivelse: {myProduct?.desc}</Text>
+        <Text stylingclasses="whitespace-pre-line">Produktbeskrivelse: {myProduct?.desc}</Text>
         </div>
 
         <div class="flex flex-row justify-between">

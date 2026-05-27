@@ -17,31 +17,31 @@ const response = await fetch(url, options);
 const data = await response.json();
 const products = Array.isArray(data) ? data : [];
 
-// const {
-//   title,
-//   category,
-//   qty,
-//   price,
-//   desc,
-//   release,
-//   discount,
-//   img,
-//   id,
-// } = Astro.props;
-
 const {product} = Astro.props;
 
+
+
 ---
+
+{product.release || }
  <div class="w-fit">
     <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 relative left-30 top-12 text-center">
         <p>Pre-Order</p>
     </div>
 
+
+    <div class="w-fit">
+    {product.discount &&
+    <div class="max-w-25 rounded-xl bg-green-200 min-w-20 relative left-30 top-12 text-center">
+        <p>Tilbud</p>
+    </div>
+}
+
         <a href=`/${product.slug}`>
             <img src={product.img} alt="Image for product" class="place-self-center w-50 min-h-100 object-contain">
             <div class="flex flex-col place-self-center">
             <Text>{product.title}</Text>
-            <Text stylingclasses="mx-auto" >{product.price},00 kr</Text>
+            <Text stylingclasses="mx-auto" >{Math.ceil((product.price - product.price * (product.discount / 100)))},00 kr</Text>
             </div>
         </a>
 </div>

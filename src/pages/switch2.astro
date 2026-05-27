@@ -125,13 +125,11 @@ const {
         )} -->
 
 
-{products.map((product) => (
-            <Card
-                img={product.img}
-                title={product.title}
-                price={product.price}
-            />
-        ))}
+
+
+<!-- {products.map((product) => (<Card {product} /> ))} -->
+
+        {products.map((product) => <Card {product} />)}
 
         </section>
 

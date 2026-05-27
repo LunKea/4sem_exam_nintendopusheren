@@ -9,7 +9,8 @@ import Text from '../components/Text.astro';
 
 export async function getStaticPaths() {
     // url and key to supabase/database
-const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+const url1 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+const url2 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Switch2";
 const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
 
   const options = {
@@ -17,13 +18,19 @@ const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
     apikey: key,
   },
 };
-  const data = await fetch(url, options).then((res) => {
+  const data1 = await fetch(url1, options).then((res) => {
   return res.json();
 });
 
+  const data2 = await fetch(url2, options).then((res) => {
+  return res.json();
+});
 
+  const data = Array.isArray(data1) ? data1 : [];
+  const data2Array = Array.isArray(data2) ? data2 : [];
+  const allProducts = [...data, ...data2Array];
 
-  return data.map((product) => {
+  return allProducts.map((product) => {
     return {
       params: { slug: product.slug},
       props: { myProduct: product },

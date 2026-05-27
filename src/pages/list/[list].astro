@@ -1,37 +1,39 @@
 ---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Text from '../../components/Text.astro';
+import Card from '../../components/card.astro';
+import Heading from '../../components/Heading.astro';
+
 //@ts-nocheck
-import MainLayout from "../layouts/MainLayout.astro";
-import Heading from '../components/Heading.astro';
-import Text from '../components/Text.astro';
-import Card from '../components/card.astro';
+export async function getStaticPaths() {
+  const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
+  const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
 
-    // url and key to supabase/database
+  const response = await fetch(url, { headers: { apikey: key } });
+  const data = await response.json();
+  const products = Array.isArray(data) ? data : [];
+
+  const brands = [...new Set(products.map(p => p.brand.toLowerCase()))];
+
+  return brands.map(brand => ({
+    params: { list: brand }
+  }));
+}
+
+// Separate fetch for the page itself
 const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
-const key =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
+const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
 
-const options = {
-  headers: {
-    apikey: key,
-  },
-};
-// fetch data
-const response = await fetch(url, options);
+const { list } = Astro.params;
+const response = await fetch(url, { headers: { apikey: key } });
 const data = await response.json();
-const products = Array.isArray(data) ? data.filter(product => product.category === "Switch 2") : [];
-console.log('Products data:', products); // DEBUG: Check what fields exist in console in browser (F12)
+const products = Array.isArray(data) ? data : [];
 
-const {
-  title,
-  category,
-  qty,
-  price,
-  desc,
-  release,
-  discount,
-} = Astro.props;
+const filteredProducts = products.filter(p => p.brand.toLowerCase() === list);
 
 ---
+
+
 <MainLayout title="Titel">
 
 
@@ -45,7 +47,7 @@ const {
 
         <div class="w-fit">
         <a href="">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="../img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Forudbestillinger</Text>
             <Text>X</Text>
@@ -55,7 +57,7 @@ const {
 
         <div class="w-fit">
         <a>
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="../img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Nyt spil</Text>
             <Text>X</Text>
@@ -79,12 +81,18 @@ const {
         </a>
         </div>
 
-                <div class="w-fit">
-        <a href="#" data-filter="console" class="cursor-pointer">
+        <div class="w-fit">
+        <a href="?type=console" data-filter="console" class="cursor-pointer">
             <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Switch 2 konsol</Text>
             <Text>X</Text>
+                
+                <!-- <p>Forudbestillinger</p>
+                <p>X</p> -->
+            </div>
+        </a>
+        </div>
                 
                 <!-- <p>Forudbestillinger</p>
                 <p>X</p> -->
@@ -109,13 +117,16 @@ const {
 
     <Heading stylingclasses="mx-10 mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
 
-    <section id="products-section" class="flex flex-row flex-wrap gap-4 mx-10 mt-10 justify-between">
-        {products.map((product) => (
-          <div data-type={product.type}>
-            <Card {product} />
-          </div>
-        ))}
-        </section>
+<section id="products-section" class="flex flex-row flex-wrap gap-4 mx-10 mt-10 justify-between">
+{filteredProducts.map((product) => (
+  <div data-type={product.type}>
+    <Card {product} />
+  </div>
+))}
+
+
+        
+</section>
 
         <script>
           function applyFilter(filterType) {
@@ -156,3 +167,8 @@ const {
 
 </MainLayout>
 
+<script>
+const params = new URLSearchParams(window.location.search);
+const urlFilter = params.get('type');
+if (urlFilter) applyFilter(urlFilter);
+</script>

@@ -35,7 +35,9 @@ console.log('Products data:', products); // DEBUG: Check what fields exist in co
     <ul id="konsoller_list" class="flex flex-col">
   {brands.map((brand) => (
     <li class="category category_btn h-10 place-content-center">
-      <a href="/switch2" class="ml-2 w-full h-full flex items-center">{brand}</a>
+      <a href={`/list/${brand.toLowerCase()}`} class="ml-2 w-full h-full flex items-center">
+  {brand}
+</a>
     </li>
     ))}
 </ul>   

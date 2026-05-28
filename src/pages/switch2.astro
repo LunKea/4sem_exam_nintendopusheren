@@ -18,13 +18,8 @@ const options = {
 // fetch data
 const response = await fetch(url, options);
 const data = await response.json();
-
-// Makes it that it only shows products that has the kids_approved boolean as TRUE
-// Supabase writes TRUE in all caps so gotta specify it, othewise it won't work. the standard true string is there just in case
-const products = Array.isArray(data) ? data.filter(p => p.kid_game === true) : [];
+const products = Array.isArray(data) ? data : [];
 console.log('Products data:', products); // DEBUG: Check what fields exist
-
-const allCount = products.filter(p => p.category === 'Switch2').length;
 
 // Checks what the date is 
 const today = new Date();
@@ -42,8 +37,8 @@ const gameCount = products.filter(p => p.type === 'game').length;
 const usedCount = products.filter(p => p.type=== 'used').length;
 const discountCount = products.filter(p => p.discount !== null && p.discount !== undefined).length;
 const consoleCount = products.filter(p => p.type === 'console').length;
-const accessoryCount = products.filter(p => p.type === 'accessory').length;
-// const xboxCount = products.filter(p => p.brand === 'Xbox').length;
+const accessoryCount = products.filter(p => p.type === 'accesory').length;
+
 const totalCount = products.length;
 
 const {
@@ -56,13 +51,11 @@ const {
   discount,
 } = Astro.props;
 
-const data = await response.json();
-console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.kid_game);
 ---
 <MainLayout title="Titel">
 
 
-	<section id="category" class="flex flex-row flex-wrap gap-4">
+<section id="category" class="flex flex-row flex-wrap gap-4">
 
       <div class="w-fit">
         <a href="#" data-filter="all" class="cursor-pointer">

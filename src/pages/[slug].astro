@@ -41,7 +41,10 @@ const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
 // const { id } = Astro.params;
 const { myProduct } = Astro.props;
 
-
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const releaseDate = new Date(myProduct.release);
+releaseDate.setHours(0, 0, 0, 0);
 ---
 
 <MainLayout title="Titel">
@@ -56,6 +59,36 @@ const { myProduct } = Astro.props;
 
     <section class="grid grid-cols-2 gap-5">
         <div>
+          {releaseDate > today && myProduct.discount ? (
+      <div class="relative">
+        <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 absolute place-self-end top-0 text-center">
+          <p>Pre-Order</p>
+        </div>
+        <div class="max-w-25 rounded-xl bg-green-200 min-w-20 absolute place-self-end top-7 text-center">
+          <p>Tilbud</p>
+        </div>
+      </div>
+    ) : (
+      <>
+        {releaseDate > today &&
+        <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 absolute place-self-end top-0 text-center">
+          <p>Pre-Order</p>
+        </div>
+        }
+
+        {myProduct.discount &&
+        <div class="max-w-25 rounded-xl bg-green-200 min-w-20 absolute place-self-end top-0 text-center">
+          <p>Tilbud</p>
+        </div>
+        }
+
+          {myProduct.type == "used" &&
+        <div class="max-w-25 rounded-xl bg-black-500 min-w-20 absolute place-self-end top-0 text-center">
+          <p class="text-white">Brugt</p>
+        </div>
+        }
+      </>
+    )}
             <Text size="xsmall"> Home/ {myProduct?.category}/ {myProduct?.title} </Text>
             <img src={myProduct?.img} alt="product" class="w-full h-auto">
         </div>
@@ -63,11 +96,14 @@ const { myProduct } = Astro.props;
         <div class="flex flex-col gap-2">
         <Heading size="large"> {myProduct?.title}</Heading>
         <Text>Kategori: {myProduct?.category}</Text>
-        <Heading size="medium">{myProduct?.price},00 kr</Heading>
-        <Heading> Forudbestilling </Heading>
+      
+        {myProduct.discount &&
+        <Heading stylingclasses="opacity-50 line-through" >{myProduct.price},00 kr</Heading>
+            }
+        <Heading >{Math.ceil((myProduct.price - myProduct.price * (myProduct.discount / 100)))},00 kr</Heading>
         
         <div class="h-90">
-        <Text stylingclasses="whitespace-pre-line">Produktbeskrivelse: {myProduct?.desc}</Text>
+        <Text stylingclasses="whitespace-pre-line">{myProduct?.desc}</Text>
         </div>
 
         <div class="flex flex-row justify-between">

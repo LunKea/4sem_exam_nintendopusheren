@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import '../styles/tailwind.css';
 const { title } = Astro.props;
 import LeftCategory from "../components/LeftCategory.astro";
+import RightCategory from "../components/RightCategory.astro";
 ---
 <html lang="en">
 	<head>
@@ -26,7 +27,7 @@ import LeftCategory from "../components/LeftCategory.astro";
 			<slot />
 
 		</main>
-	<LeftCategory></LeftCategory>
+	<RightCategory></RightCategory>
 		</section>
 		<footer>
 			<Footer></Footer>

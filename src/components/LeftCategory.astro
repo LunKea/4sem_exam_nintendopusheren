@@ -11,6 +11,7 @@ const options = {
     apikey: key,
   },
 };
+
 // fetch data
 const data = await fetch(url, options).then((res) => {
   return res.json();
@@ -27,86 +28,68 @@ const data = await fetch(url, options).then((res) => {
     </div>
 
     <div id="konsoller_list" class="flex flex-col">
-    <a class="category category_btn h-10 place-content-center" href="/switch2">
+    <a class="category category_btn min-h-10 place-content-center" href="/switch2">
         <p class="ml-2">Switch 2-Udvalg</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/sony">
-        <p class="ml-2">Sony</p>
-    </a>
-
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+    <a class="category category_btn min-h-10 place-content-center" href="/playstation">
         <p class="ml-2">Playstation</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+    <a class="category category_btn min-h-10 place-content-center" href="/xbox">
         <p class="ml-2">Xbox</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Sega</p>
+    <a class="category category_btn min-h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Sega (WIP)</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Evercade</p>
+    <a class="category category_btn min-h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Evercade (WIP)</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Andre konsoller</p>
+    <a class="category category_btn min-h-10 place-content-center" href="">
+        <p class="ml-2">Andre konsoller (WIP)</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
+    <a class="category category_btn min-h-10 place-content-center" href="/konsoller/nes">
         <p class="ml-2">Konsol tilbehør</p>
     </a>
 
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Reservedele til konsoller</p>
+    <a class="category category_btn min-h-10 place-content-center" href="/konsoller/nes">
+        <p class="ml-2">Reservedele til konsoller (WIP)</p>
     </a>
     </div>
 </div>
 
-<div class="flex flex-col outline-2">
-    <div id="merch" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+<div class="flex flex-col category">
+    <div id="merch" class="inactive_category outline-b outline-2 flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
         <img src="/public/icons/menu.svg" alt="Menu icon">
     <p class="text-white">Merchandise</p>
     <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
     </div>
 
     <div id="merch_list" class="hidden">
-    <a class="category category_btn h-10 place-content-center" href="/switch2">
-        <p class="ml-2">Switch 2-Udvalg</p>
-    </a>
-
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Switch 2-Udvalg</p>
-    </a>
-
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Switch 2-Udvalg</p>
-    </a>
-
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Switch 2-Udvalg</p>
-    </a>
-
-    <a class="category category_btn h-10 place-content-center" href="/konsoller/nes">
-        <p class="ml-2">Switch 2-Udvalg</p>
+<a class="category category_btn min-h-10 flex" href="">
+    <p class="ml-2">Disney Infinite (WIP)</p>
     </a>
     </div>
 </div>
 
 <div class="flex flex-col category">
-    <div id="figurer" class="inactive_category flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
+    <div id="figurer" class="inactive_category outline-b outline-2 flex flex-row place-content-between items-center h-20 px-2 hover-pointer">
         <img src="/public/icons/menu.svg" alt="Menu icon">
     <p class="text-white">Figurer til spil</p>
     <img src="/public/icons/arrow_up.svg" alt="Arrow up icon" class="inactive_arrow">
     </div>
 
-    <div id="figurer_list" class="hidden">
-    <a class="category category_btn h-10 place-content-center" href="/switch2">
-        <p class="ml-2">Switch 2-Udvalg</p>
+    <div id="figurer_list" class="hidden flex flex-col">
+    <a class="category category_btn min-h-10 flex" href="...">
+    <p class="ml-2">Skylanders (WIP)</p>
     </a>
 
+    <a class="category category_btn min-h-10 flex" href="...">
+    <p class="ml-2">Disney Infinite (WIP)</p>
     </a>
     </div>
 </div>

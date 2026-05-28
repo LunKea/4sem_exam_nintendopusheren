@@ -17,35 +17,35 @@ import Heading from "./Heading.astro";
 
 <div class="px-10 w-full">
   <div class="grid grid-cols-5 w-full border border-black items-stretch">
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-b border-black ">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Om Nintendopusheren</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Butikken</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Reperationer</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-b border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Indkøb fra private</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-b border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-b border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Shipping outside <br> Denmark</Text>
     </a>
 
-    <a href="kids" class="flex justify-center items-center p-3 min-h-16 border-r border-black">
+    <a href="kids" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Spil til børn</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Information</Text>
     </a>
-    <a href="" class="flex justify-center items-center p-3 min-h-16 border-r border-black">
+    <a href="" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Ugens nye varer</Text>
     </a>
-    <a href="adresse" class="flex justify-center items-center p-3 min-h-16 border-r border-black">
+    <a href="adresse" class="grid_block flex justify-center items-center p-3 min-h-16 border-r border-black">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Åbningstider og adresse</Text>
     </a>
-    <a href="kontakt" class="flex justify-center items-center p-3 min-h-16">
+    <a href="kontakt" class="grid_block flex justify-center items-center p-3 min-h-16">
       <Text size="small" weight="bold" color="secondary" stylingclasses="text-center">Kontakt</Text>
     </a>
   </div>
@@ -56,3 +56,9 @@ import Heading from "./Heading.astro";
 <img src="/img/time.png" alt="Logo" class="max-w-50 h-auto mt-auto">
 </a>
 </section>
+
+<style>
+  .grid_block{
+    background: var(--cta-background);
+  }
+</style>

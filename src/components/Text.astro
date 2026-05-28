@@ -3,6 +3,7 @@ const {
   size = "medium",
   font = "sans",
   weight = "medium",
+  color = "primary",
   stylingclasses = "",
 } = Astro.props;
 
@@ -21,6 +22,11 @@ const weightClasses = {
   medium: "font-medium",
   bold: "font-bold",
 };
+
+const fontColor = {
+  primary: "text-[var(--font-color-primary)]",
+  secondary: "text-[var(--font-color-secondary)]",
+};
 ---
 
 <p
@@ -28,7 +34,7 @@ const weightClasses = {
     sizeClasses[size],
     fontClasses[font],
     weightClasses[weight],
-    'text-[var(--font-color-primary)]',
+    fontColor[color],
     stylingclasses,
   ]}
 >

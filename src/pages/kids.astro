@@ -5,8 +5,11 @@ import Heading from '../components/Heading.astro';
 import Text from '../components/Text.astro';
 import Card from '../components/card.astro';
 
-    // url and key to supabase/database
+// url and key to supabase/database
 const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Switch2";
+const url2 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Playstation";
+const url3 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Xbox";
+
 const key =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
 
@@ -15,19 +18,39 @@ const options = {
     apikey: key,
   },
 };
+
 // fetch data
-const response = await fetch(url, options);
-const data = await response.json();
+// Fetch both APIs at the same time
+const [response1, response2, response3] = await Promise.all([
+  fetch(url, options),
+  fetch(url2, options),
+  fetch(url3, options)
+]);
 
+const data1 = await response1.json();
+const data2 = await response2.json();
+const data3 = await response3.json();
 
+// Merge both arrays and filter
+const products = [
+  ...(Array.isArray(data1) ? data1.filter(p => p.kid_game === true) : []),
+  ...(Array.isArray(data2) ? data2.filter(p => p.kid_game === true) : []),
+  ...(Array.isArray(data3) ? data3.filter(p => p.kid_game === true) : []),
+];
 // Makes it that it only shows products that has the kids_approved boolean as TRUE
 // Supabase writes TRUE in all caps so gotta specify it, othewise it won't work. the standard true string is there just in case
-const products = Array.isArray(data) ? data.filter(p => p.kid_game === true) : [];
+// This was not true - Writing out the code below as the filtering don't work anymore due to the same function happening above on line 32
+// const products = Array.isArray(data) ? data.filter(p => p.kid_game === true) : [];
 console.log('Products data:', products); // DEBUG: Check what fields exist
 
-const allCount = products.filter(p => p.category === 'Switch2').length;
+// Used this line of code to check if the kid_game field is present and what its value is for the first product, to understand why the filtering wasn't working. 
+// This console.log would display values in the VSCode terminal when running the Astro dev server, not in the browser console.
+console.log('First product kid_game value:', products[0]?.kid_game, typeof products[0]?.kid_game);
 
-// const xboxCount = products.filter(p => p.brand === 'Xbox').length;
+// Counts how many products are under each category
+const nintendoCount = products.filter(p => p.brand === 'Nintendo').length;
+const sonyCount = products.filter(p => p.brand === 'Sony').length;
+const xboxCount = products.filter(p => p.brand === 'Xbox').length;
 const totalCount = products.length;
 
 const {
@@ -40,32 +63,62 @@ const {
   discount,
 } = Astro.props;
 
-console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.kid_game);
 ---
 <MainLayout title="Titel">
-<section id="category" class="flex flex-row flex-wrap gap-4">
+
+
+	<section id="category" class="flex flex-row flex-wrap gap-4">
 
       <div class="w-fit">
-        <a href="#" data-filter="TRUE" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Alle produkter</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
+  <a href="#" data-filter="all" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Alle mærker</Text>
+      <Text>{totalCount}</Text>
+    </div>
+  </a>
+</div>
 
+<div class="w-fit">
+  <a href="#" data-filter="Nintendo" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Nintendo</Text>
+      <Text>{nintendoCount}</Text>
+    </div>
+  </a>
+</div>
+
+<div class="w-fit">
+  <a href="#" data-filter="Sony" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Playstation</Text>
+      <Text>{sonyCount}</Text>
+    </div>
+  </a>
+</div>
+
+<div class="w-fit">
+  <a href="#" data-filter="Xbox" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Xbox</Text>
+      <Text>{xboxCount}</Text>
+    </div>
+  </a>
+</div>
 
     </section>
 
+    <Heading stylingclasses=" mt-10 decoration-red-50">Spil til børn</Heading>
+    <Text>Her er der en samling egnet til børn. Baseret på PEGI rating. </Text>
 
-    <Heading stylingclasses=" mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
-
-   <section id="products-section" class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 h-250">
+    <section id="products-section" class="flex flex-row flex-wrap gap-4 mt-10 h-200">
         {products.map((product) => (
-          <div data-type={product.type} data-release={product.release} data-discount={product.discount}>
-            <Card {product} />
-          </div>
+          <div data-type={product.type} data-brand={product.brand} data-release={product.release} data-discount={product.discount}>
+  <Card {product} />
+</div>
         ))}
     </section>
 
@@ -171,10 +224,12 @@ console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.
                 // Show only products with a discount
                 shouldDisplay = product.dataset.discount && product.dataset.discount !== 'undefined';
               } else {
-                // Show products matching the type
-                shouldDisplay = product.dataset.type === filterType;
+                // Show products matching the brand
+                shouldDisplay = product.dataset.brand === filterType;
               }
               
+              
+
               product.style.display = shouldDisplay ? '' : 'none';
             });
 

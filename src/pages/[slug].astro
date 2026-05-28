@@ -97,37 +97,59 @@ releaseDate.setHours(0, 0, 0, 0);
 
         <div class="flex flex-col gap-2">
         <Heading size="large"> {myProduct?.title}</Heading>
-        <Text>Kategori: {myProduct?.category}</Text>
+        <Text>Type: {myProduct?.type}</Text>
       
         {myProduct.discount &&
         <Heading stylingclasses="opacity-50 line-through" >{myProduct.price},00 kr</Heading>
             }
         <Heading >{Math.ceil((myProduct.price - myProduct.price * (myProduct.discount / 100)))},00 kr</Heading>
         
+          <div class="qty">
+            {myProduct.qty > 0 ? (
+                <Text stylingclasses="text-green-600">På lager</Text>
+            ) : (
+                <Text stylingclasses="text-red-600">Ikke på lager</Text>
+            )}
+        </div>
+
         <div class="h-90">
         <Text stylingclasses="whitespace-pre-line">{myProduct?.desc}</Text>
         </div>
 
         <div class="flex flex-row justify-between">
-            <div class="w-20 h-10 bg-green-800">
+          <div class="flex flex-row">
+            <div class="flex place-content-center  w-20 h-10 shopBTN outline-1 outline-black-500 outline-">
+            <Heading weight="bold" stylingclasses="place-self-center">-</Heading>
             </div>
 
-            <div class="w-20 h-10 bg-green-800">
+            <div class="flex place-content-center  w-20 h-10 outline-1 outline-black-500 shopBTN">
+            <Heading weight="bold" stylingclasses="place-self-center">1</Heading>
             </div>
 
-            <div class="w-20 h-10 bg-green-800">
+            <div class="flex place-content-center w-20 h-10 outline-1 outline-black-500 shopBTN">
+            <Heading weight="bold" stylingclasses="place-self-center">+</Heading>
             </div>
-
-            <div class="w-20 h-10 bg-green-800">
             </div>
-
+            <div class="flex place-content-center w-20 h-10 outline-1 cartBTN">
+              <img src="/img/cart.webp" alt="">
+            </div>
+  
         </div>
 
         </div>
     </section>
 
     
-
-
     </section>
 </MainLayout>
+
+<style>
+.shopBTN{
+  background: var(--cta-background);
+}
+
+.cartBTN{
+background: var(--cta-background-active);
+}
+
+</style>

@@ -47,6 +47,12 @@ console.log('Products data:', products); // DEBUG: Check what fields exist
 // This console.log would display values in the VSCode terminal when running the Astro dev server, not in the browser console.
 console.log('First product kid_game value:', products[0]?.kid_game, typeof products[0]?.kid_game);
 
+// Counts how many products are under each category
+const nintendoCount = products.filter(p => p.brand === 'Nintendo').length;
+const sonyCount = products.filter(p => p.brand === 'Sony').length;
+const xboxCount = products.filter(p => p.brand === 'Xbox').length;
+const totalCount = products.length;
+
 const {
   title,
   category,
@@ -64,43 +70,49 @@ const {
 	<section id="category" class="flex flex-row flex-wrap gap-4">
 
       <div class="w-fit">
-        <a href="#" data-filter="all" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Alle mærker</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
+  <a href="#" data-filter="all" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Alle mærker</Text>
+      <Text>{totalCount}</Text>
+    </div>
+  </a>
+</div>
 
+<div class="w-fit">
+  <a href="#" data-filter="Nintendo" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Nintendo</Text>
+      <Text>{nintendoCount}</Text>
+    </div>
+  </a>
+</div>
 
-        <div class="w-fit">
-        <a href="#" data-filter="Nintendo" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Nintendo</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
-        
-        <div class="w-fit">
-                <a href="#" data-filter="Sony" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Playstation</Text>
-            <Text>X</Text>
+<div class="w-fit">
+  <a href="#" data-filter="Sony" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Playstation</Text>
+      <Text>{sonyCount}</Text>
+    </div>
+  </a>
+</div>
 
-            </div>
-        </a>
-        </div>
-
-        
-        </div>
+<div class="w-fit">
+  <a href="#" data-filter="Xbox" class="cursor-pointer">
+    <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+    <div class="flex flex-row place-content-between">
+      <Text>Xbox</Text>
+      <Text>{xboxCount}</Text>
+    </div>
+  </a>
+</div>
 
     </section>
 
-    <Heading stylingclasses=" mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
+    <Heading stylingclasses=" mt-10 decoration-red-50">Spil til børn</Heading>
+    <Text>Her er der en samling egnet til børn. Baseret på PEGI rating. </Text>
 
     <section id="products-section" class="flex flex-row flex-wrap gap-4 mt-10 h-200">
         {products.map((product) => (

@@ -134,16 +134,13 @@ const data = await fetch(url, options).then((res) => {
 
     .category_btn {
         outline: 2px solid black;
-        background: var(--category-background);
+        background: var(--cta-background);
+        font-color: var(--cta-text-secondary);
     }
 
 </style>
 
 <script is:inline>
-
-    
-    const activeCategory = document.querySelector('.active_category');
-    const inactiveCategories = document.querySelectorAll('.inactive_category');
     const konsollerBtn = document.querySelector('#konsoller');
     const merchBtn = document.querySelector('#merch');
     const figurerBtn = document.querySelector('#figurer');
@@ -151,16 +148,69 @@ const data = await fetch(url, options).then((res) => {
     const merchList = document.querySelector('#merch_list');
     const figurerList = document.querySelector('#figurer_list');
 
-    konsollerBtn.addEventListener('click', () => {
-        konsollerList.classList.toggle('hidden');
-    });
+    // Restore menu states from sessionStorage on page load
+    function restoreMenuStates() {
+        const konsollerState = sessionStorage.getItem('konsoller_active');
+        const merchState = sessionStorage.getItem('merch_active');
+        const figurerState = sessionStorage.getItem('figurer_active');
 
-    merchBtn.addEventListener('click', () => {
-        merchList.classList.toggle('hidden');
-    });
+        if (konsollerState === 'false') {
+            konsollerBtn.classList.remove('active_category');
+            konsollerBtn.classList.add('inactive_category');
+            konsollerList.classList.add('hidden');
+            const arrow = konsollerBtn.querySelector('img:last-child');
+            if (arrow) arrow.classList.add('inactive_arrow');
+        }
 
-    figurerBtn.addEventListener('click', () => {
-        figurerList.classList.toggle('hidden');
-    });
+        if (merchState === 'true') {
+            merchBtn.classList.remove('inactive_category');
+            merchBtn.classList.add('active_category');
+            merchList.classList.remove('hidden');
+            const arrow = merchBtn.querySelector('img:last-child');
+            if (arrow) arrow.classList.remove('inactive_arrow');
+        }
 
+        if (figurerState === 'true') {
+            figurerBtn.classList.remove('inactive_category');
+            figurerBtn.classList.add('active_category');
+            figurerList.classList.remove('hidden');
+            const arrow = figurerBtn.querySelector('img:last-child');
+            if (arrow) arrow.classList.remove('inactive_arrow');
+        }
+    }
+
+    function setupCategoryToggle(btnElement, listElement, storageKey) {
+        btnElement.addEventListener('click', () => {
+            const isActive = btnElement.classList.contains('active_category');
+            
+            // Toggle active/inactive classes
+            if (isActive) {
+                btnElement.classList.remove('active_category');
+                btnElement.classList.add('inactive_category');
+            } else {
+                btnElement.classList.remove('inactive_category');
+                btnElement.classList.add('active_category');
+            }
+
+            // Toggle list visibility
+            listElement.classList.toggle('hidden');
+
+            // Toggle arrow rotation
+            const arrow = btnElement.querySelector('img:last-child');
+            if (arrow) {
+                arrow.classList.toggle('inactive_arrow');
+            }
+
+            // Save state to sessionStorage
+            const newState = !isActive;
+            sessionStorage.setItem(storageKey, newState);
+        });
+    }
+
+    // Restore menu states on page load
+    restoreMenuStates();
+
+    setupCategoryToggle(konsollerBtn, konsollerList, 'konsoller_active');
+    setupCategoryToggle(merchBtn, merchList, 'merch_active');
+    setupCategoryToggle(figurerBtn, figurerList, 'figurer_active');
 </script>

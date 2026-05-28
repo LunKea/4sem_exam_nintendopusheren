@@ -33,12 +33,18 @@
   /* TOKENS */
 
   /* TEXT TOKENS */
-  --font-color-pimary: var(--color-red-400);
+  --font-color-primary: var(--color-red-400);
 
   /* CTAs */
   --cta-background-active: var(--color-red-400);
   --cta-background-inactive: var(--color-black-500);
-  --cta-text: var(--color-white);
+  --cta-text-primary: var(--color-white);
+
+  /* FOR BUTTONS UNDER CATEGORY left/right menu */
+  --cta-background: var(--color-gray-200);
+  --cta-text-secondary: var(--color-gray-800);
+  --cta-category-hover: var(--color-gray-300);
+
   --category-background: var(--color-white);
 
   /* TAGS */

@@ -70,6 +70,7 @@ releaseDate.setHours(0, 0, 0, 0);
       </div>
     ) : (
       <>
+      <div class="relative">
         {releaseDate > today &&
         <div class="max-w-25 rounded-xl bg-amber-200 min-w-20 absolute place-self-end top-0 text-center">
           <p>Pre-Order</p>
@@ -87,6 +88,7 @@ releaseDate.setHours(0, 0, 0, 0);
           <p class="text-white">Brugt</p>
         </div>
         }
+        </div>
       </>
     )}
             <Text size="xsmall"> Home/ {myProduct?.category}/ {myProduct?.title} </Text>

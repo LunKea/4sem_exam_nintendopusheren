@@ -21,6 +21,28 @@ const data = await response.json();
 const products = Array.isArray(data) ? data : [];
 console.log('Products data:', products); // DEBUG: Check what fields exist
 
+const allCount = products.filter(p => p.category === 'Switch2').length;
+
+// Checks what the date is 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// Counts how many products have a release date in the future (Hence why it says releaseDate > today)
+const releaseCount = products.filter(p => {
+  if (!p.release) return false;
+  const releaseDate = new Date(p.release);
+  releaseDate.setHours(0, 0, 0, 0);
+  return releaseDate > today;
+}).length;
+
+const gameCount = products.filter(p => p.type === 'game').length;
+const usedCount = products.filter(p => p.type=== 'used').length;
+const discountCount = products.filter(p => p.discount !== null && p.discount !== undefined).length;
+const consoleCount = products.filter(p => p.type === 'console').length;
+const accessoryCount = products.filter(p => p.type === 'accessory').length;
+// const xboxCount = products.filter(p => p.brand === 'Xbox').length;
+const totalCount = products.length;
+
 const {
   title,
   category,
@@ -39,10 +61,10 @@ const {
 
       <div class="w-fit">
         <a href="#" data-filter="all" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Alle produkter</Text>
-            <Text>X</Text>
+            <Text>{totalCount}</Text>
             </div>
         </a>
         </div>
@@ -50,69 +72,63 @@ const {
 
         <div class="w-fit">
         <a href="#" data-filter="preorder" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Forudbestillinger</Text>
-            <Text>X</Text>
+            <Text>{releaseCount}</Text>
             </div>
         </a>
         </div>
         
         <div class="w-fit">
                 <a href="#" data-filter="game" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Nyt spil</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
+            <Text>{gameCount}</Text>
+
             </div>
         </a>
         </div>
 
         <div class="w-fit">
                 <a href="#" data-filter="used" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Brugte spil</Text>
-            <Text>X</Text>
+            <Text>{usedCount}</Text>
             </div>
         </a>
         </div>
 
         <div class="w-fit">
         <a href="#" data-filter="discount" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>På tilbud</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
+            <Text>{discountCount}</Text>
+
             </div>
         </a>
         </div>
 
                 <div class="w-fit">
         <a href="#" data-filter="console" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Switch 2 konsol</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
+            <Text>{consoleCount}</Text>
+
             </div>
         </a>
         </div>
 
         <div class="w-fit">
         <a href="#" data-filter="accesory" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
+            <img src="img/placeholder.png" alt="Image for category" class="w-35 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Switch 2 tilbehør</Text>
-            <Text>X</Text>
+            <Text>{accessoryCount}</Text>
             </div>
         </a>
         </div>
@@ -121,7 +137,7 @@ const {
 
     <Heading stylingclasses=" mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
 
-    <section id="products-section" class="flex flex-row flex-wrap gap-4 mt-10 h-200">
+   <section id="products-section" class="grid grid-cols-3 gap-4 mt-10">
         {products.map((product) => (
           <div data-type={product.type} data-release={product.release} data-discount={product.discount}>
             <Card {product} />

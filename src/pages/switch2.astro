@@ -127,9 +127,90 @@ const {
             <Card {product} />
           </div>
         ))}
-        </section>
+    </section>
+
+    <div id="pagination" class="flex gap-3 mx-10 mt-10 mb-10 justify-center">
+    </div>
 
         <script>
+          const PRODUCTS_PER_PAGE = 9;
+          let currentPage = 1;
+
+          function updatePagination() {
+            const visibleProducts = Array.from(document.querySelectorAll('[data-type]')).filter(
+              p => p.style.display !== 'none'
+            );
+            const totalPages = Math.ceil(visibleProducts.length / PRODUCTS_PER_PAGE);
+
+            // Reset to page 1 if current page exceeds total pages
+            if (currentPage > totalPages) {
+              currentPage = 1;
+            }
+
+            // Hide all products
+            document.querySelectorAll('[data-type]').forEach(p => {
+              p.classList.add('hidden');
+            });
+
+            // Show products for current page
+            const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
+            const endIdx = startIdx + PRODUCTS_PER_PAGE;
+            visibleProducts.slice(startIdx, endIdx).forEach(p => {
+              p.classList.remove('hidden');
+            });
+
+            // Update pagination buttons
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+
+            if (totalPages > 1) {
+              // Add back arrow button
+              if (currentPage > 1) {
+                const backBtn = document.createElement('button');
+                backBtn.innerHTML = '←';
+                backBtn.className =
+                  'w-12 h-12 rounded-lg bg-gray-200 text-gray-800 font-semibold cursor-pointer transition hover:bg-gray-300';
+                backBtn.addEventListener('click', () => {
+                  if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                  }
+                });
+                paginationDiv.appendChild(backBtn);
+              }
+
+              for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = `w-12 h-12 rounded-lg font-semibold cursor-pointer transition ${
+                  i === currentPage
+                    ? 'bg-red-500 text-white'
+                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                }`;
+                btn.addEventListener('click', () => {
+                  currentPage = i;
+                  updatePagination();
+                });
+                paginationDiv.appendChild(btn);
+              }
+
+              // Add next arrow button
+              if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.innerHTML = '→';
+                nextBtn.className =
+                  'w-12 h-12 rounded-lg bg-gray-200 text-gray-800 font-semibold cursor-pointer transition hover:bg-gray-300';
+                nextBtn.addEventListener('click', () => {
+                  if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePagination();
+                  }
+                });
+                paginationDiv.appendChild(nextBtn);
+              }
+            }
+          }
+
           function applyFilter(filterType) {
             const products = document.querySelectorAll('[data-type]');
             const today = new Date();
@@ -156,6 +237,10 @@ const {
               
               product.style.display = shouldDisplay ? '' : 'none';
             });
+
+            // Reset to page 1 and update pagination
+            currentPage = 1;
+            updatePagination();
           }
 
           // Function to restore filter from URL
@@ -164,6 +249,8 @@ const {
             const urlFilter = params.get('type');
             if (urlFilter) {
               applyFilter(urlFilter);
+            } else {
+              updatePagination();
             }
           }
 

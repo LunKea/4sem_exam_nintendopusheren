@@ -137,7 +137,7 @@ const {
 
     <Heading stylingclasses=" mt-10 decoration-red-50">Kategori: Switch 2-udvalg</Heading>
 
-   <section id="products-section" class="grid grid-cols-3 gap-4 mt-10">
+   <section id="products-section" class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 h-250">
         {products.map((product) => (
           <div data-type={product.type} data-release={product.release} data-discount={product.discount}>
             <Card {product} />

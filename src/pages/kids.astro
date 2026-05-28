@@ -18,10 +18,7 @@ const options = {
 // fetch data
 const response = await fetch(url, options);
 const data = await response.json();
-
-// Makes it that it only shows products that has the kids_approved boolean as TRUE
-// Supabase writes TRUE in all caps so gotta specify it, othewise it won't work. the standard true string is there just in case
-const products = Array.isArray(data) ? data.filter(p => p.kid_game === true) : [];
+const products = Array.isArray(data) ? data : [];
 console.log('Products data:', products); // DEBUG: Check what fields exist
 
 const {
@@ -34,8 +31,6 @@ const {
   discount,
 } = Astro.props;
 
-const data = await response.json();
-console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.kid_game);
 ---
 <MainLayout title="Titel">
 
@@ -43,7 +38,7 @@ console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.
 	<section id="category" class="flex flex-row flex-wrap gap-4">
 
       <div class="w-fit">
-        <a href="#" data-filter="all" class="cursor-pointer">
+        <a href="#" data-filter="TRUE" class="cursor-pointer">
             <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
             <div class="flex flex-row place-content-between">
             <Text>Alle produkter</Text>
@@ -52,75 +47,6 @@ console.log('First product kid_game value:', data[0]?.kid_game, typeof data[0]?.
         </a>
         </div>
 
-
-        <div class="w-fit">
-        <a href="#" data-filter="preorder" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Forudbestillinger</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
-        
-        <div class="w-fit">
-                <a href="#" data-filter="game" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Nyt spil</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
-            </div>
-        </a>
-        </div>
-
-        <div class="w-fit">
-                <a href="#" data-filter="used" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Brugte spil</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
-
-        <div class="w-fit">
-        <a href="#" data-filter="discount" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>På tilbud</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
-            </div>
-        </a>
-        </div>
-
-                <div class="w-fit">
-        <a href="#" data-filter="console" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Switch 2 konsol</Text>
-            <Text>X</Text>
-                
-                <!-- <p>Forudbestillinger</p>
-                <p>X</p> -->
-            </div>
-        </a>
-        </div>
-
-        <div class="w-fit">
-        <a href="#" data-filter="accesory" class="cursor-pointer">
-            <img src="img/placeholder.png" alt="Image for category" class="w-30 h-auto">
-            <div class="flex flex-row place-content-between">
-            <Text>Switch 2 tilbehør</Text>
-            <Text>X</Text>
-            </div>
-        </a>
-        </div>
 
     </section>
 

@@ -16,7 +16,7 @@ releaseDate.setHours(0, 0, 0, 0);
     <img
       src={product.img}
       alt="Image for product"
-      class="w-50 h-50 object-contain"
+      class="w-auto min-h-50 max-h-100 object-contain"
     />
 
     <div class="absolute right-1 top-0 flex flex-col gap-1 z-10">
@@ -60,7 +60,8 @@ releaseDate.setHours(0, 0, 0, 0);
         )
       }
       <Text stylingclasses="mx-auto">
-        {Math.ceil(product.price - product.price * (product.discount / 100))},00 kr
+        {Math.ceil(product.price - product.price * (product.discount / 100))},00
+        kr
       </Text>
     </div>
   </div>

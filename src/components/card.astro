@@ -2,21 +2,6 @@
 //@ts-nocheck
 import Text from "./Text.astro";
 
-// url and key to supabase/database
-const url = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
-const key =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
-
-const options = {
-  headers: {
-    apikey: key,
-  },
-};
-// fetch data
-const response = await fetch(url, options);
-const data = await response.json();
-const products = Array.isArray(data) ? data : [];
-
 const { product } = Astro.props;
 
 const today = new Date();
@@ -25,42 +10,44 @@ const releaseDate = new Date(product.release);
 releaseDate.setHours(0, 0, 0, 0);
 ---
 
-<div class="w-full relative">
-  <div class="absolute right-2 top-2 flex flex-col gap-1">
-    {
-      releaseDate > today && (
-        <div class="rounded-xl bg-amber-200 min-w-20 text-center px-2">
-          <p>Pre-Order</p>
-        </div>
-      )
-    }
-    {
-      product.discount && (
-        <div class="rounded-xl bg-green-200 min-w-20 text-center px-2">
-          <p>Tilbud</p>
-        </div>
-      )
-    }
-    {
-      product.type == "used" && (
-        <div class="rounded-xl bg-black min-w-20 text-center px-2">
-          <p class="text-white">Brugt</p>
-        </div>
-      )
-    }
-  </div>
-</div>
-
 <a class="flex flex-col" href=`/${product.slug}`>
-  <img
-    src={product.img}
-    alt="Image for product"
-    class="place-self-center w-50 h-50 object-contain"
-  />
+  <!-- Image + tags wrapper -->
+  <div class="relative place-self-center">
+    <img
+      src={product.img}
+      alt="Image for product"
+      class="w-50 h-50 object-contain"
+    />
+
+    <div class="absolute right-1 top-0 flex flex-col gap-1 z-10">
+      {
+        releaseDate > today && (
+          <div class="rounded-xl bg-amber-200 min-w-20 text-center px-2">
+            <p>Pre-Order</p>
+          </div>
+        )
+      }
+      {
+        product.discount && (
+          <div class="rounded-xl bg-green-200 min-w-20 text-center px-2">
+            <p>Tilbud</p>
+          </div>
+        )
+      }
+      {
+        product.type == "used" && (
+          <div class="rounded-xl bg-black min-w-20 text-center px-2">
+            <p class="text-white">Brugt</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
   <div class="flex flex-col place-self-center">
-    <Text color="secondary" stylingclasses="place-self-center"
-      >{product.title}</Text
-    >
+    <Text color="secondary" stylingclasses="place-self-center">
+      {product.title}
+    </Text>
     <div class="flex flex-row gap-2 place-self-center">
       {
         product.discount && (
@@ -72,11 +59,9 @@ releaseDate.setHours(0, 0, 0, 0);
           </Text>
         )
       }
-      <Text stylingclasses="mx-auto"
-        >{
-          Math.ceil(product.price - product.price * (product.discount / 100))
-        },00 kr</Text
-      >
+      <Text stylingclasses="mx-auto">
+        {Math.ceil(product.price - product.price * (product.discount / 100))},00 kr
+      </Text>
     </div>
   </div>
 </a>

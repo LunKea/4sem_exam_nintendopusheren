@@ -11,6 +11,8 @@ export async function getStaticPaths() {
     // url and key to supabase/database
 const url1 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/NintendoPusheren";
 const url2 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Switch2";
+const url3 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Playstation";
+const url4 = "https://hrhpfuamvbbfvfhfchbv.supabase.co/rest/v1/Xbox";
 const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaHBmdWFtdmJiZnZmaGZjaGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODA5OTMsImV4cCI6MjA5NTM1Njk5M30.pDuU-_jF2L-ehWC0LVdEd8wuTOJprqtwgGcygfZN-zE";
 
   const options = {
@@ -26,9 +28,19 @@ const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
   return res.json();
 });
 
+  const data3 = await fetch(url3, options).then((res) => {
+  return res.json();
+});
+
+  const data4 = await fetch(url4, options).then((res) => {
+  return res.json();
+});
+
   const data = Array.isArray(data1) ? data1 : [];
   const data2Array = Array.isArray(data2) ? data2 : [];
-  const allProducts = [...data, ...data2Array];
+  const data3Array = Array.isArray(data3) ? data3 : [];
+  const data4Array = Array.isArray(data4) ? data4 : [];
+  const allProducts = [...data, ...data2Array, ...data3Array, ...data4Array];
 
   return allProducts.map((product) => {
     return {
@@ -95,7 +107,7 @@ releaseDate.setHours(0, 0, 0, 0);
             <img src={myProduct?.img} alt="product" class="w-full h-auto">
         </div>
 
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 just">
         <Heading size="large"> {myProduct?.title}</Heading>
         <Text>Type: {myProduct?.type}</Text>
       
@@ -116,7 +128,7 @@ releaseDate.setHours(0, 0, 0, 0);
         <Text stylingclasses="whitespace-pre-line">{myProduct?.desc}</Text>
         </div>
 
-        <div class="flex flex-row justify-between">
+        <div class="flex flex-row justify-between mt-auto">
           <div class="flex flex-row">
             <div class="flex place-content-center  w-20 h-10 shopBTN outline-1 outline-black-500 outline-">
             <Heading weight="bold" stylingclasses="place-self-center">-</Heading>
